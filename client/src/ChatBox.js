@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, Typography, Button, AppBar, Grid } from "@material-ui/core";
 import moduleStyles from "./ChatBox.module.css";
+import Chat from "./Chat.js";
 //import { makeStyles } from "@material-ui/core/styles";
 
 // const useStyles = makeStyles(theme => ({
@@ -17,7 +18,8 @@ import moduleStyles from "./ChatBox.module.css";
 
 class ChatBox extends React.Component {
   state = {
-    chat: "Hey nerd!",
+    chat: ["Hey nerd!"],
+    question: "",
     open: false
   };
   closeHandler = () => {
@@ -28,6 +30,19 @@ class ChatBox extends React.Component {
 
   handleOpen = () => {
     this.setState({
+      open: true
+    });
+  };
+
+  handleChange = event => {
+    this.setState({
+      question: event.target.value
+    });
+  };
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      chat: [...this.state.chat, this.state.question],
       open: true
     });
   };
@@ -88,15 +103,21 @@ class ChatBox extends React.Component {
               outline: "none"
             }}
           >
-            <p id="simple-modal-description">{chat}</p>
-            <input
-              className={moduleStyles.input}
-              width="80%"
-              type="text"
-              id="chat"
-              name="chat"
-              placeholder="What's you're question?"
-            />
+            <p id="simple-modal-description">
+              <Chat chat={chat} />
+            </p>
+            <form>
+              <input
+                onChange={this.handleChange}
+                className={moduleStyles.input}
+                width="80%"
+                type="text"
+                id="chat"
+                name="chat"
+                placeholder="What's you're question?"
+              />
+              <button onClick={this.handleSubmit}>Submit</button>
+            </form>
           </div>
         </Modal>
       </div>

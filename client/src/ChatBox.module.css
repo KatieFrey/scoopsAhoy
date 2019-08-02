@@ -1,7 +1,16 @@
-input {
+form {
   display: flex;
-  margin: 10%;
   flex-direction: column;
   justify-content: flex-end;
   width: 80%;
+  margin: 10%;
+}
+
+form button {
+  width: 50%;
+  margin: 5% auto;
+}
+
+p {
+  margin-top: 5%;
 }
