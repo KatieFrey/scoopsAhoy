@@ -1,0 +1,22 @@
+body {
+  box-sizing: border-box;
+  font-family: "Libre Caslon Text", serif;
+
+  background-image: url(./images/background.jpg);
+  background-image: cover;
+}
+
+#carousel {
+  width: 60%;
+  height: 40%;
+  margin: 12% auto;
+}
+
+img {
+  height: 60vh;
+  width: 60vw;
+}
+
+a {
+  cursor: alias;
+}
