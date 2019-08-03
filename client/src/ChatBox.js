@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, Typography, Button, AppBar, Grid } from "@material-ui/core";
 import moduleStyles from "./ChatBox.module.css";
 import Chat from "./Chat.js";
+import axios from "axios";
 //import { makeStyles } from "@material-ui/core/styles";
 
 // const useStyles = makeStyles(theme => ({
@@ -39,6 +40,15 @@ class ChatBox extends React.Component {
       question: event.target.value
     });
   };
+
+  askAQuestion = async q => {
+    let res = await axios.post("/", q);
+    let data = await res.json();
+    this.setState({
+      chat: [...this.state.chat, data]
+    });
+  };
+
   handleSubmit = event => {
     event.preventDefault();
     this.setState({
