@@ -3,19 +3,6 @@ import { Modal, Typography, Button, AppBar, Grid } from "@material-ui/core";
 import moduleStyles from "./ChatBox.module.css";
 import Chat from "./Chat.js";
 import axios from "axios";
-//import { makeStyles } from "@material-ui/core/styles";
-
-// const useStyles = makeStyles(theme => ({
-//   nav: {
-//     position: "absolute",
-//     width: 400,
-//     backgroundColor: theme.palette.background.primary,
-//     border: "2px solid #000",
-//     boxShadow: theme.shadows[5],
-//     padding: theme.spacing(2, 4, 4),
-//     outline: "none"
-//   }
-// }));
 
 class ChatBox extends React.Component {
   state = {
@@ -43,7 +30,9 @@ class ChatBox extends React.Component {
 
   askAQuestion = async q => {
     let res = await axios.post("/", q);
+    console.log("Res: ", res);
     let data = await res.json();
+    console.log("Data: ", data);
     this.setState({
       chat: [...this.state.chat, data]
     });
@@ -55,12 +44,15 @@ class ChatBox extends React.Component {
       chat: [...this.state.chat, this.state.question],
       open: true
     });
+    this.askAQuestion(this.state.question);
+    this.setState({
+      question: ""
+    });
   };
 
   render() {
     //const classes = useStyles();
     let { open, chat } = this.state;
-    console.log("open: ", open);
     return (
       <div>
         <AppBar
@@ -113,9 +105,9 @@ class ChatBox extends React.Component {
               outline: "none"
             }}
           >
-            <p id="simple-modal-description">
+            <div id="simple-modal-description">
               <Chat chat={chat} />
-            </p>
+            </div>
             <form>
               <input
                 onChange={this.handleChange}
@@ -124,6 +116,7 @@ class ChatBox extends React.Component {
                 type="text"
                 id="chat"
                 name="chat"
+                value={this.state.question}
                 placeholder="What's you're question?"
               />
               <button onClick={this.handleSubmit}>Submit</button>
