@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import ChatBox from "./ChatBox";
+import ChatBox from "./ChatBox/ChatBox";
 import * as serviceWorker from "./serviceWorker";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import pink from "@material-ui/core/colors/pink";

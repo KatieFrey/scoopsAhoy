@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Typography, Button, AppBar, Grid } from "@material-ui/core";
 import moduleStyles from "./ChatBox.module.css";
-import Chat from "./Chat.js";
+import Chat from "../Chat/Chat";
 import axios from "axios";
 
 class ChatBox extends React.Component {
