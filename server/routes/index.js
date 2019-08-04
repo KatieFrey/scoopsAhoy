@@ -8,12 +8,13 @@ router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.post("/", (req, res, next) => {
-  let message = req.body["chatMessage"];
+router.post("/chat", (req, res, next) => {
+  //let message = req.body["chatMessage"];
+  let message = req.body.question;
   console.log("Req: ", message);
   let newMessage = parseMessage(message);
   console.log("Response: ", newMessage);
-  res.send(message);
+  res.send(newMessage);
 });
 
 module.exports = router;

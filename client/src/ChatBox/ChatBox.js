@@ -29,9 +29,10 @@ class ChatBox extends React.Component {
   };
 
   askAQuestion = async q => {
-    let res = await axios.post("/", q);
+    console.log("q", q);
+    let res = await axios.post("/chat", { question: q });
     console.log("Res: ", res);
-    let data = await res.json();
+    let data = await res.data;
     console.log("Data: ", data);
     this.setState({
       chat: [...this.state.chat, data]
@@ -41,8 +42,7 @@ class ChatBox extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.setState({
-      chat: [...this.state.chat, this.state.question],
-      open: true
+      chat: [...this.state.chat, this.state.question]
     });
     this.askAQuestion(this.state.question);
     this.setState({
