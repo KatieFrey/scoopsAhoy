@@ -13,11 +13,14 @@ const parseMessage = message => {
     .join(" ")
     .toLowerCase();
 
-  if (locationQuestion === "is there ice cream in") {
+  // === "is there ice cream in"
+
+  if (locationQuestion.includes("ice cream")) {
     let zipCode = message.slice(-5);
     console.log("zipcode: ", typeof zipCode);
     //return parseZipCode(parseInt(zipCode));
-    console.log("Zip Code parser: ", parseZipCode(zipCode));
+    let iceCreamShops = parseZipCode(Number(zipCode));
+    response = iceCreamShops;
   } else {
     console.log("Switch message: ", message);
     switch (message) {
