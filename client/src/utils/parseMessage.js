@@ -1,5 +1,5 @@
-let toggleAnswer = require("./toggleAnswer");
-let parseZipCode = require("./parseZipCode");
+import toggleAnswer from "./toggleAnswer";
+import parseZipCode from "./parseZipCode";
 require("dotenv").config();
 
 const parseMessage = async message => {
@@ -17,13 +17,15 @@ const parseMessage = async message => {
 
   if (locationQuestion.includes("ice cream")) {
     let zipCode = message.slice(-5);
-    console.log("zipcode: ", typeof zipCode);
-    //return parseZipCode(parseInt(zipCode));
-    let iceCreamShops = await parseZipCode(Number(zipCode));
-    response = iceCreamShops;
-    console.log("Response zipcode: ", response);
+    let response = await parseZipCode(Number(zipCode));
+    let items = response.data.response.groups[0].items;
+    console.log("array: ", items);
+    let iceCreamShops = items.reduce((acc, shop) => {
+      return [...acc, shop.venue["name"]];
+    }, []);
+    console.log("Response zipcode: ", iceCreamShops);
+    return iceCreamShops;
   } else {
-    console.log("Switch message: ", message);
     switch (message) {
       case "scoops ahoy":
         response = "Scoops ahoy!";
@@ -42,4 +44,4 @@ const parseMessage = async message => {
   return response;
 };
 
-module.exports = parseMessage;
+export default parseMessage;

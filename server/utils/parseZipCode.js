@@ -1,10 +1,9 @@
 const request = require("request");
-const keys = require("../../script");
+const keys = require("../../client/src/script");
 
-const parseZipCode = zipCode => {
+const parseZipCode = async zipCode => {
   let output;
-
-  let res = request(
+  let resOutput = await request(
     {
       url: "https://api.foursquare.com/v2/venues/explore",
       method: "GET",
@@ -28,13 +27,13 @@ const parseZipCode = zipCode => {
         }, []);
         output = iceCreamShops;
       }
+      console.log("Res in zip code: ", res);
       console.log("Output: ", output);
-      return output;
     }
   );
+  return resOutput;
   // console.log("Spots: ", requestSpots.response.groups[0].items);
   //return requestSpots.response.groups[0].items;
-  //return output;
 };
 
 module.exports = parseZipCode;

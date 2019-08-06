@@ -2,11 +2,15 @@ import React from "react";
 import { Modal, Typography, Button, AppBar, Grid } from "@material-ui/core";
 import moduleStyles from "./ChatBox.module.css";
 import Chat from "../Chat/Chat";
-import axios from "axios";
+//import keys from "../../../script"
+import parseMessage from "../utils/parseMessage";
+//import axios from "axios";
 
 class ChatBox extends React.Component {
   state = {
-    chat: ["Hey nerd!"],
+    chat: [
+      "Hey nerd! Ask a question. For example you can ask 'Where can I get ice cream around <zipCode>?' or 'Where are you found?'"
+    ],
     question: "",
     open: false
   };
@@ -30,13 +34,21 @@ class ChatBox extends React.Component {
 
   askAQuestion = async q => {
     console.log("q", q);
-    let res = await axios.post("/chat", { question: q });
+    let res = await parseMessage(q);
+
+    if (Array.isArray(res)) {
+      this.setState({
+        chat: [...this.state.chat, "Here are a few shops you can try: ", ...res]
+      });
+    } else {
+      this.setState({
+        chat: [...this.state.chat, res]
+      });
+    }
+    //let res = await axios.post("/chat", { question: q });
     console.log("Res: ", res);
-    let data = await res.data;
-    console.log("Data: ", data);
-    this.setState({
-      chat: [...this.state.chat, data]
-    });
+    // let data = await res.data;
+    // console.log("Data: ", data);
   };
 
   handleSubmit = event => {
@@ -101,8 +113,11 @@ class ChatBox extends React.Component {
               color: "white",
               border: "2px solid #000",
               boxShadow: "theme.shadows[5]",
-              padding: "theme.spacing(2, 4, 4)",
-              outline: "none"
+              //padding: "theme.spacing(2, 4, 4)",
+              outline: "none",
+              overflow: "auto",
+              padding: "15px 10px",
+              lineSpacing: "5px"
             }}
           >
             <div id="simple-modal-description">
