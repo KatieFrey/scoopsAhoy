@@ -1,5 +1,5 @@
 //const request = require("request");
-import keys from "../script.js";
+import keys from "./script.js";
 import axios from "axios";
 
 const parseZipCode = async zipCode => {
