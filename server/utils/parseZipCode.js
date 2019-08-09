@@ -1,5 +1,5 @@
 const request = require("request");
-const keys = require("../../client/src/script");
+const keys = require("../../client/src/utils/script");
 
 const parseZipCode = async zipCode => {
   let output;
